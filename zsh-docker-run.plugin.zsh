@@ -8,7 +8,7 @@ function can_be_run_through_docker_compose_service() {
 }
 
 function docker_run() {
-  docker run --rm -it -p 3000:3000 -p 8000:8000 -u $UID -v $PWD:/sandbox -v $HOME:$HOME -e HOME=$HOME -w /sandbox --entrypoint=$3 $1:$2 ${@:4}
+  docker run --rm -it -p $4:$4 -u $UID -v $PWD:/sandbox -v $HOME:$HOME -e HOME=$HOME -w /sandbox --entrypoint=$3 $1:$2 ${@:5}
 }
 
 function docker_compose_run() {
@@ -22,6 +22,6 @@ function run_with_docker() {
   then
     docker_compose_run $3 $image_name ${@:4}
   else
-    docker_run $1 $2 $3 ${@:4}
+    docker_run $1 $2 $3 $4 ${@:5}
   fi
 }
